@@ -1,0 +1,47 @@
+{
+  "name": "custom-rendering-spa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MobxService.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:stage && npm run build:prod",
+    "build:stage": "npm run bundle -- --config- env=stage",
+    "build:prod": "npm run bundle -- --config- env=prod",
+    "bundle": "rollup -c rollup.config.js",
+    "buildnpm": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cg79/custom-rendering-spa.git"
+  },
+  "author": "Claudiu Gombos <claudiu9379@yahoo.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cg79/custom-rendering-spa/issues"
+  },
+  "homepage": "https://github.com/cg79/custom-rendering-spa#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@types/lodash": "^4.14.149",
+    "lodash": "^4.17.19",
+    "rollup": "^2.78.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-copy-glob": "^0.3.1",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-merge": "^0.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rxjs-observe": "^2.1.5",
+    "typescript": "^3.7.2"
+  }
+}
