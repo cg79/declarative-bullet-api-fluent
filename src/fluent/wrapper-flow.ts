@@ -1,6 +1,7 @@
 import BulletFlowApi from './bullet-flow';
+import { IWrapperFlow } from './i-wrapper-flow';
 
-class WrapperFlow extends BulletFlowApi {
+class WrapperFlow extends BulletFlowApi implements IWrapperFlow {
   specificFlowPropsAsJson() {
     const request = {};
 

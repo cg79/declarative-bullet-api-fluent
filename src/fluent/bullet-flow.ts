@@ -1,10 +1,12 @@
 import FluentBulletBase, {
   ConditionFieldType,
 } from './fluent-bullet-base';
+import { IWrapperFlow } from './i-wrapper-flow';
 import WrapperFlow from './wrapper-flow';
+import { WrapperFlowBuilder } from './wrapper-flow-builder';
 import WrapperStopIf from './wrapper-stop-if';
 
-export type FlowFunctionType = (x: BulletFlowApi) => FluentBulletBase;
+export type FlowFunctionType = (x: BulletFlowApi) => BulletFlowApi;
 
 class BulletFlowApi extends FluentBulletBase {
   protected wrapperStopIf: WrapperStopIf;
@@ -25,10 +27,10 @@ class BulletFlowApi extends FluentBulletBase {
     return this;
   }
 
-  protected flowList = [];
+  protected flowList: IWrapperFlow[] = [];
   flow(flowBuilder: FlowFunctionType) {
-    const flowWrap = new WrapperFlow();
-    flowBuilder(flowWrap);
+    const flowWrap = new WrapperFlowBuilder().createWrapperFlow(flowBuilder);
+    // flowBuilder(flowWrap);
 
     // this.flowInstance = flowWrap;
     this.flowList.push(flowWrap);
