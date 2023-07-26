@@ -1,4 +1,5 @@
-import BulletFlowApi, { FlowFunctionType, IBulletFlowApi } from "./bullet-flow";
+import BulletFlowApi from "./bullet-flow";
+import { FlowFunctionType, IBulletFlowApi } from "./facade";
 
 export interface IWrapperFlow {
   __proto__: IBulletFlowApi;

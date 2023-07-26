@@ -1,4 +1,6 @@
 import { IPage } from "./IPage";
+// import { FlowFunctionType } from "./facade";
+// import WrapperFlow from "./wrapper-flow";
 
 const Page =  function(): IPage{
   var itemsOnPageV = 5;
@@ -17,7 +19,17 @@ const Page =  function(): IPage{
     repeat: function(value: boolean) {
       this.repeatValue = value;
       return this;
-    }
+    },
+
+    // flow: function (flowBuilder: FlowFunctionType) {
+    //   const flowWrap = WrapperFlow().load(flowBuilder);
+    //   // flowBuilder(flowWrap);
+
+    //   // this.flowInstance = flowWrap;
+    //   this.flowList.push(flowWrap);
+
+    //   return this;
+    // },
   }
   
 

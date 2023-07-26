@@ -2,7 +2,7 @@ import { CustomHttpResponse } from './CustomHttpResponse';
 import { BulletAuthentication } from './facade';
 import BulletHttpRequestLibrary from './BulletHttpRequestLibrary';
 import WrapperFlow, { IWrapperFlow } from './fluent/wrapper-flow';
-import { FlowFunctionType } from './fluent/bullet-flow';
+import { FlowFunctionType } from './fluent/facade';
 import { FluentBulletBase } from './fluent/fluent-bullet-base';
 
  const DeclarativeBulletApi = function(bulletAuthentication: BulletAuthentication){
