@@ -1,6 +1,6 @@
 import WrapperBodyField from './fluent/wrapper-body-field';
 import WrapperModuleFunction from './fluent/wrapper-module-function';
-import WrapperPage from './fluent/wrapper-page';
+import WrapperPage, { IWrapperPage } from './fluent/wrapper-page';
 
 class Reuse {
   createSortObject(sortList) {
@@ -26,7 +26,7 @@ class Reuse {
     return Object.keys(response).length ? response : null;
   }
 
-  includePage(pageInstance: WrapperPage) {
+  includePage(pageInstance: IWrapperPage) {
     if (!pageInstance) {
       return null;
     }

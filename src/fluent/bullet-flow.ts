@@ -2,13 +2,18 @@ import FluentBulletBase, {
   ConditionFieldType,
 } from './fluent-bullet-base';
 import { IWrapperFlow } from './i-wrapper-flow';
-import WrapperFlow from './wrapper-flow';
 import { WrapperFlowBuilder } from './wrapper-flow-builder';
 import WrapperStopIf from './wrapper-stop-if';
 
-export type FlowFunctionType = (x: BulletFlowApi) => BulletFlowApi;
+export interface IBulletFlowApi {
+  stopIf(builder: ConditionFieldType): this;
+  executeIf(builder: ConditionFieldType): this;
+  flow(flowBuilder: FlowFunctionType): this;
+}
 
-class BulletFlowApi extends FluentBulletBase {
+export type FlowFunctionType = (x: IBulletFlowApi) => IBulletFlowApi;
+
+class BulletFlowApi extends FluentBulletBase implements IBulletFlowApi{
   protected wrapperStopIf: WrapperStopIf;
   stopIf(builder: ConditionFieldType) {
     const instance = new WrapperStopIf();

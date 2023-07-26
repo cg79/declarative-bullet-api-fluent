@@ -64,10 +64,10 @@ class Join {
     return this;
   }
 
-  protected pageInstance: WrapperPage = null;
+  protected pageInstance = null;
   page(builder: PageType) {
-    const inst = new WrapperPage();
-    builder(inst);
+    const inst =  WrapperPage().load(builder);
+    // builder(inst);
 
     this.pageInstance = inst;
 

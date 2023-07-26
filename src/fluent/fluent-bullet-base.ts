@@ -28,6 +28,7 @@ import WrapperTrigger from './wrapper-trigger';
 import Trigger from './Trigger';
 import WrapperTrace from './wrapper-trace';
 import { BULLET_METHOD } from './constants';
+import { IPage } from './IPage';
 export type BodyFieldFunctionType = (x: BodyField) => BodyField;
 export type ModuleFunctionType = (x: ModuleFunction) => ModuleFunction;
 export type StorageType = (x: BulletStorage) => BulletStorage;
@@ -35,7 +36,7 @@ export type TakeFieldType = (x: SelectKey) => SelectKey;
 export type TakeType = (x: Select) => Select;
 export type TakeBaseType = (x: TakeBase) => TakeBase;
 export type JoinType = (x: Join) => Join;
-export type PageType = (x: Page) => Page;
+export type PageType = (x: IPage) => IPage;
 export type SortType = (x: Sort) => Sort;
 export type JoinCollectionType = (x: JoinCollection) => JoinCollection;
 export type ConditionFieldType = (x: StopIf) => StopIf;
@@ -313,10 +314,9 @@ class FluentBulletBase {
     return this;
   }
 
-  protected pageInstance: WrapperPage = null;
+  protected pageInstance = null;
   page(builder: PageType) {
-    const inst = new WrapperPage();
-    builder(inst);
+    const inst =  WrapperPage().load(builder);
 
     this.pageInstance = inst;
 

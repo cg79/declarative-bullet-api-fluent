@@ -1,38 +1,42 @@
-import { FlowFunctionType } from './bullet-flow';
-import { SortType } from './fluent-bullet-base';
-import Sort from './Sort';
-import WrapperFlow from './wrapper-flow';
-import WrapperSort from './wrapper-sort';
+import { IPage } from "./IPage";
 
-class Page {
-  protected itemsOnPageV = 5;
-  itemsOnPage(value: number) {
-    this.itemsOnPageV = value;
-    return this;
+const Page =  function(): IPage{
+  var itemsOnPageV = 5;
+  var pageNoV = 1;
+  var repeatValue = false;
+
+  return {
+    itemsOnPage: function (value: number){
+      this.itemsOnPageV = value;
+      return this;
+    },
+    pageNo: function(value: number) {
+      this.pageNoV = value;
+      return this;
+    },
+    repeat: function(value: boolean) {
+      this.repeatValue = value;
+      return this;
+    }
   }
+  
 
-  protected pageNoV = 1;
-  pageNo(value: number) {
-    this.pageNoV = value;
-    return this;
-  }
+  
+  
 
-  protected flowList = [];
-  flow(flowBuilder: FlowFunctionType) {
-    const flowWrap = new WrapperFlow();
-    flowBuilder(flowWrap);
+  // protected flowList = [];
+  // flow(flowBuilder: FlowFunctionType) {
+  //   const flowWrap = new WrapperFlow();
+  //   flowBuilder(flowWrap);
 
-    // this.flowInstance = flowWrap;
-    this.flowList.push(flowWrap);
+  //   // this.flowInstance = flowWrap;
+  //   this.flowList.push(flowWrap);
 
-    return this;
-  }
+  //   return this;
+  // }
 
-  protected repeatValue = false;
-  repeat(value: boolean) {
-    this.repeatValue = value;
-    return this;
-  }
+  
+  
   
 }
 
