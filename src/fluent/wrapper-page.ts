@@ -2,11 +2,13 @@ import Page from "./Page";
 import { PageType } from "./fluent-bullet-base";
 import { IPage } from "./IPage";
 
-export interface IWrapperPage extends IPage {
+export interface IWrapperPage {
+  __proto__: IPage;
   asJson: () => any;
+  load: (builder: PageType) => IWrapperPage
 }
 
-const WrapperPage = function () {
+const WrapperPage = function (): IWrapperPage {
   return {
     __proto__: Page(),
     asJson: function () {
@@ -31,9 +33,11 @@ const WrapperPage = function () {
 
       return response;
     },
-    load: function(builder: PageType) {
+    load: function(builder: PageType): IWrapperPage {
       builder(this);
       debugger;
+
+      return this;
     }
   };
 };

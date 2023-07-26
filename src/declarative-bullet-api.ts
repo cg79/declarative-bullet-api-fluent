@@ -2,7 +2,7 @@ import { CustomHttpResponse } from './CustomHttpResponse';
 import { BulletAuthentication } from './facade';
 import FluentBulletBase from './fluent/fluent-bullet-base';
 import BulletHttpRequestLibrary from './BulletHttpRequestLibrary';
-import WrapperFlow from './fluent/wrapper-flow';
+import WrapperFlow, { IWrapperFlow } from './fluent/wrapper-flow';
 import { FlowFunctionType } from './fluent/bullet-flow';
 
 class DeclarativeBulletApi extends FluentBulletBase {
@@ -19,8 +19,7 @@ class DeclarativeBulletApi extends FluentBulletBase {
 
   protected flowList = [];
   flow(flowBuilder: FlowFunctionType) {
-    const flowWrap = new WrapperFlow();
-    flowBuilder(flowWrap);
+    const flowWrap =  WrapperFlow().load(flowBuilder);
 
     // this.flowInstance = flowWrap;
     this.flowList.push(flowWrap);
@@ -39,7 +38,7 @@ class DeclarativeBulletApi extends FluentBulletBase {
         response.flow = this.flowList[0].asJson();
       } else {
         const jsFlows = [];
-        this.flowList.forEach((el: WrapperFlow)=> jsFlows.push(el.asJson()));
+        this.flowList.forEach((el: IWrapperFlow)=> jsFlows.push(el.asJson()));
         response.flow = jsFlows;
       }
     }

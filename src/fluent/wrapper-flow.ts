@@ -1,45 +1,62 @@
-import BulletFlowApi from './bullet-flow';
-import { IWrapperFlow } from './i-wrapper-flow';
+import BulletFlowApi, { FlowFunctionType, IBulletFlowApi } from "./bullet-flow";
 
-class WrapperFlow extends BulletFlowApi implements IWrapperFlow {
-  specificFlowPropsAsJson() {
-    const request = {};
+export interface IWrapperFlow {
+  __proto__: IBulletFlowApi;
+  specificFlowPropsAsJson: () => any;
 
-    if (this.wrapperStopIf) {
-      const cond = this.wrapperStopIf.asJson();
-      if (cond) {
-        request['stopIf'] = cond;
-      }
-    }
-
-    if (this.wrapperExecuteIf) {
-      const cond = this.wrapperExecuteIf.asJson();
-      if (cond) {
-        request['executeIf'] = cond;
-      }
-    }
-    return request;
-  }
-
-  asJson() {
-    const response: any = {
-      ...this.specificFlowPropsAsJson(),
-      ...this.asJsonBase(),
-    };
-
-    const flowListLength = this.flowList.length;
-    if (flowListLength) {
-      if (flowListLength === 1) {
-        response.flow = this.flowList[0].asJson();
-      } else {
-        const jsFlows = [];
-        this.flowList.forEach((el: WrapperFlow) => jsFlows.push(el.asJson()));
-        response.flow = jsFlows;
-      }
-    }
-
-    return response;
-  }
+  asJson: () => any;
+  load: (builder: FlowFunctionType) => IWrapperFlow;
 }
+
+const WrapperFlow = function (): IWrapperFlow {
+  return {
+    __proto__: BulletFlowApi(),
+    specificFlowPropsAsJson: function () {
+      const request = {};
+
+      if (this.wrapperStopIf) {
+        const cond = this.wrapperStopIf.asJson();
+        if (cond) {
+          request["stopIf"] = cond;
+        }
+      }
+
+      if (this.wrapperExecuteIf) {
+        const cond = this.wrapperExecuteIf.asJson();
+        if (cond) {
+          request["executeIf"] = cond;
+        }
+      }
+      return request;
+    },
+    asJson() {
+      const response: any = {
+        ...this.specificFlowPropsAsJson(),
+        ...this.asJsonBase(),
+      };
+
+      const flowListLength = this.flowList.length;
+      if (flowListLength) {
+        if (flowListLength === 1) {
+          response.flow = this.flowList[0].asJson();
+        } else {
+          const jsFlows = [];
+          this.flowList.forEach((el: IWrapperFlow) =>
+            jsFlows.push(el.asJson())
+          );
+          response.flow = jsFlows;
+        }
+      }
+
+      return response;
+    },
+    load: function (builder: FlowFunctionType): IWrapperFlow {
+      builder(this);
+      debugger;
+
+      return this;
+    },
+  };
+};
 
 export default WrapperFlow;
