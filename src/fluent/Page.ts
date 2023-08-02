@@ -17,16 +17,16 @@ class Page {
     return this;
   }
 
-  protected flowList = [];
-  flow(flowBuilder: FlowFunctionType) {
-    const flowWrap = new WrapperFlow();
-    flowBuilder(flowWrap);
+  // protected flowList = [];
+  // flow(flowBuilder: FlowFunctionType) {
+  //   const flowWrap = new WrapperFlow();
+  //   flowBuilder(flowWrap);
 
-    // this.flowInstance = flowWrap;
-    this.flowList.push(flowWrap);
+  //   // this.flowInstance = flowWrap;
+  //   this.flowList.push(flowWrap);
 
-    return this;
-  }
+  //   return this;
+  // }
 
   protected repeatValue = false;
   repeat(value: boolean) {

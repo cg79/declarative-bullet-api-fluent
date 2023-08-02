@@ -1,33 +1,35 @@
-import BodyField from './body-field';
-import BulletStorage from './bullet-storage';
-import SelectKey from './take-key';
-import Select from './take';
-import TakeBase from './take-base';
-import StopIf from './stop-if';
-import Join from './join';
-import JoinCollection from './join-collection';
-import Find from './find';
-import Sort from './Sort';
-import Page from './Page';
-import WrapperFind from './wrapper-find';
-import WrapperSort from './wrapper-sort';
-import WrapperPage from './wrapper-page';
-import WrapperJoin from './wrapper-join';
-import WrapperBodyField from './wrapper-body-field';
-import WrapperStorage from './wrapper-storage';
-import WrapperTake from './wrapper-take';
-import Collection from './collection';
-import ModuleFunction from './module-function';
-import WrapperCollection from './wrapper-collection';
-import WrapperModuleFunction from './wrapper-module-function';
-import reuse from '../reuse';
-import WrapperLog from './wrapper-log';
-import Log from './Log';
-import Trace from './Trace';
-import WrapperTrigger from './wrapper-trigger';
-import Trigger from './Trigger';
-import WrapperTrace from './wrapper-trace';
-import { BULLET_METHOD } from './constants';
+import BodyField from "./body-field";
+import BulletStorage from "./bullet-storage";
+import SelectKey from "./take-key";
+import Select from "./take";
+import TakeBase from "./take-base";
+import StopIf from "./stop-if";
+import Join from "./join";
+import JoinCollection from "./join-collection";
+import Find from "./find";
+import Sort from "./Sort";
+import Page from "./Page";
+import WrapperFind from "./wrapper-find";
+import WrapperSort from "./wrapper-sort";
+import WrapperPage from "./wrapper-page";
+import WrapperJoin from "./wrapper-join";
+import WrapperBodyField from "./wrapper-body-field";
+import WrapperStorage from "./wrapper-storage";
+import WrapperTake from "./wrapper-take";
+import Collection from "./collection";
+import ModuleFunction from "./module-function";
+import WrapperCollection from "./wrapper-collection";
+import WrapperModuleFunction from "./wrapper-module-function";
+import reuse from "../reuse";
+import WrapperLog from "./wrapper-log";
+import Log from "./Log";
+import Trace from "./Trace";
+import WrapperTrigger from "./wrapper-trigger";
+import Trigger from "./Trigger";
+import WrapperTrace from "./wrapper-trace";
+import { BULLET_METHOD } from "./constants";
+import WrapperMethod from "./wrapper-method";
+import { MethodType } from "./method";
 export type BodyFieldFunctionType = (x: BodyField) => BodyField;
 export type ModuleFunctionType = (x: ModuleFunction) => ModuleFunction;
 export type StorageType = (x: BulletStorage) => BulletStorage;
@@ -46,13 +48,13 @@ export type TraceType = (x: Trace) => Trace;
 export type TriggerType = (x: Trigger) => Trigger;
 
 class FluentBulletBase {
-  protected _name = '';
+  protected _name = "";
   name(value: string) {
     this._name = value;
     return this;
   }
 
-  protected _description = '';
+  protected _description = "";
   description(value: string) {
     this._description = value;
     return this;
@@ -76,13 +78,11 @@ class FluentBulletBase {
     return this;
   }
 
-  protected _flowName = '';
+  protected _flowName = "";
   executeFlowByName(flowName: string) {
     this._flowName = flowName;
     return this;
   }
-
-
 
   protected wrapperLog: WrapperLog;
   log(builder: LogType) {
@@ -90,6 +90,16 @@ class FluentBulletBase {
     builder(inst);
 
     this.wrapperLog = inst;
+
+    return this;
+  }
+
+  protected wrapperMethod: WrapperMethod;
+  method(builder: MethodType) {
+    const inst = new WrapperMethod();
+    builder(inst);
+
+    this.wrapperMethod = inst;
 
     return this;
   }
@@ -133,72 +143,88 @@ class FluentBulletBase {
     return this;
   }
 
-  insert(collectionName){
+  insert(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.INSERT);
 
     this._collection = inst;
     return this;
   }
 
-  update(collectionName){
+  update(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.UPDATE);
 
     this._collection = inst;
     return this;
   }
 
-  updateOne(collectionName){
+  updateOne(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
-    inst.method(BULLET_METHOD.UPDATE_ONE);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
 
+    inst.method(BULLET_METHOD.UPDATE_ONE);
     this._collection = inst;
     return this;
   }
 
-  delete(collectionName){
+  delete(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.DELETE);
 
     this._collection = inst;
     return this;
   }
 
-  deleteOne(collectionName){
+  deleteOne(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.DELETE_ONE);
 
     this._collection = inst;
     return this;
   }
 
-  pagination(collectionName){
+  pagination(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.PAGINATION);
 
     this._collection = inst;
     return this;
   }
 
-  find(collectionName){
+  find(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.FIND);
 
     this._collection = inst;
     return this;
   }
 
-  findOne(collectionName){
+  findOne(collectionName = "") {
     const inst = new WrapperCollection();
-    inst.name(collectionName);
+    if (collectionName) {
+      inst.name(collectionName);
+    }
     inst.method(BULLET_METHOD.FIND_ONE);
 
     this._collection = inst;
@@ -207,7 +233,7 @@ class FluentBulletBase {
 
   //todo useprefix sa adaug aici si la flow
 
-  protected keyValue = '';
+  protected keyValue = "";
   key(value: string) {
     this.keyValue = value;
     return this;
@@ -300,6 +326,16 @@ class FluentBulletBase {
     return this;
   }
 
+  protected lamdaInstance: WrapperModuleFunction;
+  lamda(builder: ModuleFunctionType) {
+    const instance = new WrapperModuleFunction();
+    builder(instance);
+
+    this.lamdaInstance = instance;
+
+    return this;
+  }
+
   protected joinList: WrapperJoin[] = null;
   join(builder: JoinType) {
     if (!this.joinList) {
@@ -345,8 +381,8 @@ class FluentBulletBase {
     return this;
   }
 
-  protected reqIdV = '';
-  ReqId(value: string){
+  protected reqIdV = "";
+  ReqId(value: string) {
     this.reqIdV = value;
   }
 
@@ -358,52 +394,53 @@ class FluentBulletBase {
     // }
 
     if (this._name) {
-      request['name'] = this._name;
+      request["name"] = this._name;
     }
 
     if (this.reqIdV) {
-      request['reqid'] = this.reqIdV;
+      request["reqid"] = this.reqIdV;
     }
-    
 
     if (this._description) {
-      request['description'] = this._description;
+      request["description"] = this._description;
     }
 
-    if(this._saveForLaterUse){
-      request['saveForLaterUse'] = true;
+    if (this._saveForLaterUse) {
+      request["saveForLaterUse"] = true;
     }
 
-    if(this._mergePreviousResultToFlowBody){
-      request['mergePreviousResultToFlowBody'] = true;
+    if (this._mergePreviousResultToFlowBody) {
+      request["mergePreviousResultToFlowBody"] = true;
     }
 
-    if(this._mergePreviousResultToFlowResult){
-      request['mergePreviousResultToFlowResult'] = true;
+    if (this._mergePreviousResultToFlowResult) {
+      request["mergePreviousResultToFlowResult"] = true;
     }
 
     if (this.wrapperLog) {
       const logObj = this.wrapperLog.asJson();
       if (logObj) {
-        request['log'] = logObj;
+        request["log"] = logObj;
       }
+    }
+
+    if (this.wrapperMethod && this.wrapperMethod.method) {
+      request["method"] = this.wrapperMethod.method;
     }
 
     if (this.wrapperTraceStart) {
       const traceObj = this.wrapperTraceStart.asJson();
       if (traceObj) {
-        request['traceStart'] = traceObj;
+        request["traceStart"] = traceObj;
       }
     }
 
     if (this.wrapperTraceEnd) {
       const traceObj = this.wrapperTraceEnd.asJson();
       if (traceObj) {
-        request['traceEnd'] = traceObj;
+        request["traceEnd"] = traceObj;
       }
     }
-
-    
 
     // if (this.wrapperTrigger) {
     //   const obj = this.wrapperTrigger.asJson();
@@ -413,7 +450,7 @@ class FluentBulletBase {
     // }
 
     if (this.bodyV) {
-      request['body'] = this.bodyV;
+      request["body"] = this.bodyV;
     }
 
     if (this._collection) {
@@ -434,14 +471,14 @@ class FluentBulletBase {
       }
     }
 
-    if(this.mergeFunctionInstance){
+    if (this.mergeFunctionInstance) {
       const responseAsJson = this.mergeFunctionInstance.asJson();
       if (responseAsJson) {
         request.merge = responseAsJson;
       }
     }
 
-     // if (this.moduleFunctionInstance) {
+    // if (this.moduleFunctionInstance) {
     //   const responseAsJson = this.moduleFunctionInstance.asJson();
     //   if (responseAsJson) {
     //     request.run = responseAsJson;
@@ -453,16 +490,14 @@ class FluentBulletBase {
     }
 
     if (this.storageInstance) {
-      request['storage'] = this.storageInstance.asJson();
+      request["storage"] = this.storageInstance.asJson();
     }
 
     if (this.keyValue) {
       request.key = this.keyValue;
     }
-    
-    const bodyFields = reuse.createBodyFields(
-      this.bodyFields
-    );
+
+    const bodyFields = reuse.createBodyFields(this.bodyFields);
     if (bodyFields) {
       request.bodyFields = bodyFields;
     }
@@ -487,12 +522,12 @@ class FluentBulletBase {
       request.sort = sort;
     }
 
-    if(this._flowName){
-      request['executeflowByName'] = this._flowName;
-        request['collection'] = {
-          name: '',
-          method: "triggerExecuteFlow"
-      }
+    if (this._flowName) {
+      request["executeflowByName"] = this._flowName;
+      request["collection"] = {
+        name: "",
+        method: "triggerExecuteFlow",
+      };
     }
 
     return request;

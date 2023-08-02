@@ -1,9 +1,12 @@
-import { CustomHttpResponse } from './CustomHttpResponse';
-import { BulletAuthentication } from './facade';
-import FluentBulletBase from './fluent/fluent-bullet-base';
-import BulletHttpRequestLibrary from './BulletHttpRequestLibrary';
-import WrapperFlow from './fluent/wrapper-flow';
-import { FlowFunctionType } from './fluent/bullet-flow';
+import { CustomHttpResponse } from "./CustomHttpResponse";
+import { BulletAuthentication } from "./facade";
+import FluentBulletBase, {
+  ModuleFunctionType,
+} from "./fluent/fluent-bullet-base";
+import BulletHttpRequestLibrary from "./BulletHttpRequestLibrary";
+import WrapperFlow from "./fluent/wrapper-flow";
+import { FlowFunctionType } from "./fluent/bullet-flow";
+// import WrapperModuleFunction from "./fluent/wrapper-module-function";
 
 class DeclarativeBulletApi extends FluentBulletBase {
   private bulletAuthentication: BulletAuthentication;
@@ -28,18 +31,35 @@ class DeclarativeBulletApi extends FluentBulletBase {
     return this;
   }
 
+  // protected lamdaInstance: WrapperModuleFunction;
+  // lamda(builder: ModuleFunctionType) {
+  //   const instance = new WrapperModuleFunction();
+  //   builder(instance);
+
+  //   this.lamdaInstance = instance;
+
+  //   return this;
+  // }
+
   asJson() {
     const response = {
       ...this.asJsonBase(),
     };
 
+    if (this.lamdaInstance) {
+      const responseAsJson = this.lamdaInstance.asJson();
+      if (responseAsJson) {
+        response.lamda = responseAsJson;
+      }
+    }
+
     const flowListLength = this.flowList.length;
     if (flowListLength) {
-      if(flowListLength === 1){
+      if (flowListLength === 1) {
         response.flow = this.flowList[0].asJson();
       } else {
         const jsFlows = [];
-        this.flowList.forEach((el: WrapperFlow)=> jsFlows.push(el.asJson()));
+        this.flowList.forEach((el: WrapperFlow) => jsFlows.push(el.asJson()));
         response.flow = jsFlows;
       }
     }

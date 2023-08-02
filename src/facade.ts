@@ -18,8 +18,8 @@ export interface CreateUserRequest {
 export interface DeltaFunctionRequest {
   _id?: string;
   guid: string;
-  modulename: string;
-  functionname: string;
+  module: string;
+  method: string;
 
   functiontext: string;
 }
@@ -56,8 +56,8 @@ export interface PageRequest {
 
 export interface DeltaFunctionRequest {
   _id?: string;
-  modulename: string;
-  functionname: string;
+  module: string;
+  method: string;
   functiontext: string;
   hasBrackets?: boolean;
 
@@ -65,7 +65,7 @@ export interface DeltaFunctionRequest {
 }
 
 export interface RemoveFunctionRequest {
-  functionname?: string;
+  method?: string;
   _id?: string;
 
   guid?: string;
