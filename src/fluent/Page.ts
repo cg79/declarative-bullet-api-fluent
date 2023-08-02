@@ -1,40 +1,21 @@
-import { IPage } from "./IPage";
-// import { FlowFunctionType } from "./facade";
-// import WrapperFlow from "./wrapper-flow";
+import { FlowFunctionType } from './bullet-flow';
+import { SortType } from './fluent-bullet-base';
+import Sort from './Sort';
+import WrapperFlow from './wrapper-flow';
+import WrapperSort from './wrapper-sort';
 
-const Page =  function(): IPage{
-  var itemsOnPageV = 5;
-  var pageNoV = 1;
-  var repeatValue = false;
-
-  return {
-    itemsOnPage: function (value: number){
-      this.itemsOnPageV = value;
-      return this;
-    },
-    pageNo: function(value: number) {
-      this.pageNoV = value;
-      return this;
-    },
-    repeat: function(value: boolean) {
-      this.repeatValue = value;
-      return this;
-    },
-
-    // flow: function (flowBuilder: FlowFunctionType) {
-    //   const flowWrap = WrapperFlow().load(flowBuilder);
-    //   // flowBuilder(flowWrap);
-
-    //   // this.flowInstance = flowWrap;
-    //   this.flowList.push(flowWrap);
-
-    //   return this;
-    // },
+class Page {
+  protected itemsOnPageV = 5;
+  itemsOnPage(value: number) {
+    this.itemsOnPageV = value;
+    return this;
   }
-  
 
-  
-  
+  protected pageNoV = 1;
+  pageNo(value: number) {
+    this.pageNoV = value;
+    return this;
+  }
 
   // protected flowList = [];
   // flow(flowBuilder: FlowFunctionType) {
@@ -47,8 +28,11 @@ const Page =  function(): IPage{
   //   return this;
   // }
 
-  
-  
+  protected repeatValue = false;
+  repeat(value: boolean) {
+    this.repeatValue = value;
+    return this;
+  }
   
 }
 

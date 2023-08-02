@@ -7,6 +7,7 @@ enum BULLET_METHOD {
   FIND = 'find',
   FIND_ONE = 'findOne',
   PAGINATION = 'page',
+  LAMDA = 'lamda',
 }
 
 enum BULLET_JOIN_METHOD {
